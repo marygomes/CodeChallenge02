@@ -1,0 +1,48 @@
+This challenge requires correcting a string containing a label showing pricing information for reduced-to-clear items. The format of the label is “Was £a, then £b, then £c, now £d”. The label is only correct if a > b > c > d. Unfortunately extravaganza price matching activity can cause prices to be temporarily reduced and then raised again. There is another glitch in the system that creates the label string that can cause prices to be set higher than the original prices.
+
+For examples of incorrect labels include:
+
+“Was £10, then £8, then £11, now £6”. This should be “Was £11, now £6”.
+
+“Was £10, then £8, then £8, now £6”. This should be “Was £10, then £8, now £6”
+
+“Was £10, then £6, then £4, now £8”. This should be “Was £10, now £8”.
+
+A new function called fixPriceLabel() which accepts a string containing a price label and writes out a string containing a valid price label needs to be created. The business rules are:
+
+A price must be removed from the label if it is bigger or equal to a previous price or smaller or equal to a later price. Work from left to right. So if the “was” price is smaller than the “now” price then discard the “was” price. Prices in the original label can be formatted as integer or two digit decimal. e.g. £99 or £99.50. Preserve the original price format in the output. The initial price in the label must be prefixed with “was” and the last price prefixed with now and all other prices prefixed with “then”. If there is only one price prefix it with “now”.
+
+The input string will always contain a label which is valid apart from containing invalid prices so don’t add code to validate anything except the prices.
+
+Use local conventions for naming the function e.g. fix-price-label() if your language doesn’t use camel case.
+
+For languages that require wrapping functions in classes, such as Java, please call the class “Challenge2”.
+
+Entries should be returned by 8th April.
+
+Additional Notes
+Based on experience, this will make my life easier:
+
+Always use the function name used in the question.
+Comments are surprisingly hard to read when looking at a lot of code. Please use them sparingly. A good tip is to use variable or function names to explain whats going on.
+Don’t include code that isn’t necessary, e.g. code to capture data from the command line.
+If you are including tests in the same file, put them all in one block at either the start or end of the file.
+Some good coding tips:
+
+Immutable is generally good. i.e. avoid variables unless absolutely necessary.
+Small functions with a small number of parameters are generally good. Two other coding tips I forgot about that were relevant to challenge-1 are “single responsibility principle” and “open/closed” principle. The OC principle is about making your code so you can extend what the code does, e.g. enable it to include weeks, without changing any logic in the code.
+Indentation of 4 characters is also better than using 2 characters!
+Clarifications
+Is it expected to do anything in particular if the string it is fed isn’t valid? Or can we assume it’s always going to be given something valid?
+
+The first bullet in the business rules reads as though when given “Was £10, then £8, then £8, now £6” it should return “Was £10, now £6” (the first £8 is equal to a later price, the second £8 is bigger than or equal to a a previous price)… but I’m guessing it should actually return “Was £10, then £8, now £6”?
+
+You are right, remove the first offending price. rather than both. Assume the input string is always valid apart from some prices being wrong.
+
+Should the result of “Was £10, then £8, then £11, now £6”. Be “Was £10, then £8, now £6” or “Was £11, now £6” the example in the sheet is the first one, but “Work from left to right. So if the “was” price is smaller than the “now” price then discard the “was” price.” suggests otherwise to me
+
+Yes, following the rules I think you are correct. I’ve been tripped up by my own test. I’ll update the example to reflect that. Treat this as a case study in using specification by example to clarify requirements!
+
+One last question based on a test I just wrote. What should "Was £18, then £17, then £18.00, now £11.50" return? I’ve assumed "Was £18.00, now £11.50" but I think Was £18, now £11.50" is plausible too, based on the spec
+
+That is a good question, working from left to right I think you would reject “£18” instead of “£18.00”.
